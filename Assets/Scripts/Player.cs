@@ -14,15 +14,13 @@ public class SimpleCarController : MonoBehaviour
 
     Rigidbody rb;
 
-    [System.Obsolete]
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.centerOfMass = new Vector3(0f, -0.5f, 0f); // lowers center for stability
-        rb.drag = normalDrag;
+        rb.linearDamping = normalDrag;
     }
 
-    [System.Obsolete]
     void FixedUpdate()
     {
         float accel = Input.GetAxis("Vertical");   // W/S or up/down
@@ -32,7 +30,7 @@ public class SimpleCarController : MonoBehaviour
         Vector3 forward = transform.forward;
 
         // limit forward speed
-        float forwardVel = Vector3.Dot(rb.velocity, forward);
+        float forwardVel = Vector3.Dot(rb.linearVelocity, forward);
         if (accel > 0f && forwardVel > maxSpeed)
         {
             // don't add more forward force if at speed cap
@@ -48,12 +46,12 @@ public class SimpleCarController : MonoBehaviour
 
         // simple drift / lateral friction: remove some sideways velocity
         Vector3 right = transform.right;
-        float lateralVel = Vector3.Dot(rb.velocity, right);
+        float lateralVel = Vector3.Dot(rb.linearVelocity, right);
         Vector3 lateralImpulse = -right * lateralVel * 0.8f;
         rb.AddForce(lateralImpulse, ForceMode.VelocityChange);
 
         // braking
-        rb.drag = braking ? brakeDrag : normalDrag;
+        rb.linearDamping = braking ? brakeDrag : normalDrag;
 
         speed.GetComponent<TMP_Text>().text = $"{Mathf.RoundToInt(forwardVel*2.237f)}";
 
