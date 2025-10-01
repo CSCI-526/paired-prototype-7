@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class SimpleCarController : MonoBehaviour
 {
+    public GameObject startLights;
     public GameObject speed;
     public float motorPower = 800f;    // forward/backward force
     public float steerTorque = 200f;   // turning torque
@@ -23,8 +24,16 @@ public class SimpleCarController : MonoBehaviour
 
     void FixedUpdate()
     {
-        float accel = Input.GetAxis("Vertical");   // W/S or up/down
-        float steer = Input.GetAxis("Horizontal"); // A/D or left/right
+        if (startLights.activeSelf) return;
+        
+        float accel = 0f;
+        if (Input.GetKey(KeyCode.W)) accel = 1f;
+        else if (Input.GetKey(KeyCode.S)) accel = -1f;
+
+        float steer = 0f;
+        if (Input.GetKey(KeyCode.D)) steer = 1f;
+        else if (Input.GetKey(KeyCode.A)) steer = -1f;
+
         bool braking = Input.GetKey(KeyCode.Space);
 
         Vector3 forward = transform.forward;

@@ -3,21 +3,19 @@ using UnityEngine.SceneManagement;
 
 public class StartScene : MonoBehaviour
 {
-    public GameObject Bot;             // prefab to spawn
-    public float spawnInterval = 3f;   // seconds between spawns
+    public GameObject Bot;
+    public float spawnInterval = 3f;
     private float timer;
 
     private Vector3 spawnBasePos = new(-228f, .5f, 63f);
 
     void Update()
     {
-        // countdown
         timer -= Time.deltaTime;
 
         if (timer <= 0f)
         {
             SpawnBot();
-            // reset timer with slight randomness
             timer = Random.Range(spawnInterval - 2.9f, spawnInterval + 1f);
         }
     }
@@ -32,10 +30,6 @@ public class StartScene : MonoBehaviour
             Quaternion spawnRot = Quaternion.Euler(0f, 90f, 0f);
 
             Instantiate(Bot, spawnPos, spawnRot);
-        }
-        else
-        {
-            Debug.LogWarning("Bot prefab not assigned in inspector!");
         }
     }
 
