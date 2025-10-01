@@ -7,10 +7,10 @@ public class SimpleCarController : MonoBehaviour
 {
     public GameObject startLights;
     public GameObject speed;
-    public float motorPower = 800f;    // forward/backward force
+    public float motorPower = 2000;    // forward/backward force
     public float steerTorque = 200f;   // turning torque
-    public float maxSpeed = 40f;       // m/s
-    public float brakeDrag = 2f;       // extra drag when braking
+    public float maxSpeed = 98;       // m/s
+    public float brakeDrag = 1f;       // extra drag when braking
     public float normalDrag = 0.1f;
 
     Rigidbody rb;

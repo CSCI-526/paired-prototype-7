@@ -119,6 +119,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &308422823 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8226165196356963, guid: 329da1dea4dc048d294a80d671969222, type: 3}
+  m_PrefabInstance: {fileID: 8070871468786244802}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -136,7 +141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &410087040
 Light:
   m_ObjectHideFlags: 0
@@ -463,6 +468,9 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4662243687726584147, guid: 329da1dea4dc048d294a80d671969222, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8070871468786244804}
     - targetCorrespondingSourceObject: {fileID: 8226165196356963, guid: 329da1dea4dc048d294a80d671969222, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
@@ -481,14 +489,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 8070871468786244803}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf3270da652c34b4f84c385dac288c5e, type: 3}
+  m_Script: {fileID: 11500000, guid: b1c427caf604b4e139eeafd111e2c64d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: {fileID: 1833682299}
+  startLights: {fileID: 2037358133729624868}
+  speed: {fileID: 308422823}
   motorPower: 2000
   steerTorque: 200
   maxSpeed: 98
-  brakeDrag: 2
+  brakeDrag: 1
   normalDrag: 0.1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

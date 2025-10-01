@@ -59,11 +59,11 @@ public class track : MonoBehaviour
                 Debug.Log($"Player {players[i].playerID} is out of time. Current Checkpoint {players[i].currentSection}"); // need to move the player to the reset spot
                 players[i].playerTimer = 5f;
 
-                RectTransform rt = gameObject.GetComponent<RectTransform>();
+                RectTransform rt = players[i].player.GetComponent<RectTransform>();
                 rt.position = new Vector3(0, 1, 0);
                 rt.rotation = Quaternion.Euler(0, 0, 0);
                 
-                Rigidbody rb = gameObject.GetComponent<Rigidbody>();
+                Rigidbody rb = players[i].player.GetComponent<Rigidbody>();
                 rb.linearVelocity = Vector3.zero;
                 rb.angularVelocity = Vector3.zero;
             }
