@@ -161,6 +161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startLights: {fileID: 3183224376624874671}
+  progressBar: {fileID: 0}
 --- !u!1 &3020528655382870370
 GameObject:
   m_ObjectHideFlags: 0
@@ -3072,7 +3073,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6744742848152391476, guid: 74164c18a3c934804919265cad977fdf, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.001
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6744742848152391476, guid: 74164c18a3c934804919265cad977fdf, type: 3}
       propertyPath: m_LocalPosition.z

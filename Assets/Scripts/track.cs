@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Microsoft.Unity.VisualStudio.Editor;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -6,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class track : MonoBehaviour
 {
     public GameObject startLights;
+    public GameObject progressBar;
     private float startTimer = 1.5f;
     private int lightCount = 0;
     private readonly List<CheckPointCheck> players = new();
@@ -58,7 +60,7 @@ public class track : MonoBehaviour
 
             if (players[i].playerTimer <= 0f)
             {
-                Debug.Log($"Player {players[i].playerID} is out of time. Current Checkpoint {players[i].currentSection}"); // need to move the player to the reset spot
+                //Debug.Log($"Player {players[i].playerID} is out of time. Current Checkpoint {players[i].currentSection}"); // need to move the player to the reset spot
                 players[i].playerTimer = 5f;
 
                 RectTransform rt = players[i].player.GetComponent<RectTransform>();
@@ -121,7 +123,48 @@ public class track : MonoBehaviour
             players[playerID].playerTimer = 5f;
             players[playerID].checkpoint = checkpoint;
 
-            if (sectionID == 91) Debug.Log("Race Over");
+            if (sectionID == 91) SceneManager.LoadScene("Assets/Scenes/StartScene.unity");
+
+            if (players.Count > 1) UpdateHeadLights();
+
+            UpdateProgressBar();
+        }
+    }
+
+    private void UpdateHeadLights()
+    {
+        int diff = players[0].currentSection - players[1].currentSection;
+
+        if (diff == 0) for (int i = 0; i < 2; i++) SetPlayerLights(players[i].player, 100, 50);
+        else
+        {
+            int leaderIndex = diff > 0 ? 0 : 1;
+            int followerIndex = diff > 0 ? 1 : 0;
+            int absDiff = Mathf.Abs(diff);
+
+            SetPlayerLights(players[leaderIndex].player, 100 / absDiff, 50 / absDiff);
+            SetPlayerLights(players[followerIndex].player, 100 * absDiff, 50 * absDiff);
+        }
+    }
+
+    private void SetPlayerLights(GameObject player, float intensity, float range)
+    {
+        for (int j = 0; j < 2; j++)
+        {
+            Light light = player.transform.Find($"light {j}").GetComponent<Light>();
+            light.intensity = intensity;
+            light.range = range;
+        }
+    }
+
+    private void UpdateProgressBar()
+    {
+        for (int i = 0; i < players.Count; i++)
+        {
+            GameObject marker = progressBar.transform.Find($"p{i}m").gameObject;
+
+            marker.GetComponent<RectTransform>().pivot = new Vector2(players[i].currentSection / 91f, 0);
+            marker.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
         }
     }
 }
