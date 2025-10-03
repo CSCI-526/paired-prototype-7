@@ -1,10 +1,8 @@
 using System.Collections.Generic;
-using Microsoft.Unity.VisualStudio.Editor;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class track : MonoBehaviour
+public class Racetrack : MonoBehaviour
 {
     public GameObject startLights;
     public GameObject progressBar;
@@ -12,7 +10,7 @@ public class track : MonoBehaviour
     private int lightCount = 0;
     private readonly List<CheckPointCheck> players = new();
 
-    class CheckPointCheck
+    private class CheckPointCheck
     {
         public int playerID;
         public GameObject player;
@@ -134,6 +132,8 @@ public class track : MonoBehaviour
     private void UpdateHeadLights()
     {
         int diff = players[0].currentSection - players[1].currentSection;
+
+        if (diff > 5 || diff * -1 > 5) return;
 
         if (diff == 0) for (int i = 0; i < 2; i++) SetPlayerLights(players[i].player, 100, 50);
         else
