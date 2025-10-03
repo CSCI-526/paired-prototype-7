@@ -151,6 +151,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5212680532052161558, guid: 329da1dea4dc048d294a80d671969222, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5393709808521452348, guid: 329da1dea4dc048d294a80d671969222, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -558,6 +562,10 @@ PrefabInstance:
     - target: {fileID: 4662243687726584147, guid: 329da1dea4dc048d294a80d671969222, type: 3}
       propertyPath: m_Name
       value: Player 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5212680532052161558, guid: 329da1dea4dc048d294a80d671969222, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5212680532052161558, guid: 329da1dea4dc048d294a80d671969222, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'

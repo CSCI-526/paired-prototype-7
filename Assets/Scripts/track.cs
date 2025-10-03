@@ -16,20 +16,22 @@ public class track : MonoBehaviour
         public GameObject player;
         public float playerTimer;
         public int currentSection;
+        public GameObject checkpoint;
 
-        public CheckPointCheck(int playerID, GameObject player)
+        public CheckPointCheck(int playerID, GameObject player, GameObject checkpoint)
         {
             this.playerTimer = 15f;
             this.currentSection = 0;
             this.player = player;
             this.playerID = playerID;
+            this.checkpoint = checkpoint;
         }
     }
 
     private void Start()
     {
-        players.Add(new CheckPointCheck(0, GameObject.Find("Player 0")));
-        if (SceneManager.GetActiveScene().name == "MultiPlayer") players.Add(new CheckPointCheck(1, GameObject.Find("Player 1")));
+        players.Add(new CheckPointCheck(0, GameObject.Find("Player 0"), GameObject.Find("Track/StartStraight 0/Checkpoint")));
+        if (SceneManager.GetActiveScene().name == "MultiPlayer") players.Add(new CheckPointCheck(1, GameObject.Find("Player 1"), GameObject.Find("Track/StartStraight 0/Checkpoint")));
     }
 
     private void Update()
@@ -60,9 +62,16 @@ public class track : MonoBehaviour
                 players[i].playerTimer = 5f;
 
                 RectTransform rt = players[i].player.GetComponent<RectTransform>();
-                rt.position = new Vector3(0, 1, 0);
-                rt.rotation = Quaternion.Euler(0, 0, 0);
-                
+                if (players.Count > 1)
+                {
+                    Vector3 pos = players[i].checkpoint.transform.position;
+                    if (i == 0) pos.x -= 1;
+                    else pos.x += 1;
+                    rt.position = pos;
+                }
+                else rt.position = players[i].checkpoint.GetComponent<Transform>().position;
+                rt.rotation = players[i].checkpoint.transform.parent.GetComponent<Transform>().rotation;
+
                 Rigidbody rb = players[i].player.GetComponent<Rigidbody>();
                 rb.linearVelocity = Vector3.zero;
                 rb.angularVelocity = Vector3.zero;
@@ -93,23 +102,24 @@ public class track : MonoBehaviour
         CheckPointTrigger.OnAnyPlaneTrigger -= HandlePlaneTrigger;
     }
 
-    private void HandlePlaneTrigger(string sectionName, string obj)
+    private void HandlePlaneTrigger(Transform section, string obj)
     {
         string[] parts1 = obj.Split();
         int playerID = int.Parse(parts1[1]);
 
-        string[] parts2 = sectionName.Split();
+        string[] parts2 = section.name.Split();
         int sectionID = int.Parse(parts2[1]);
 
-        UpdateSection(playerID, sectionID);
+        UpdateSection(playerID, sectionID, section.Find("Checkpoint").gameObject);
     }
 
-    private void UpdateSection(int playerID, int sectionID)
+    private void UpdateSection(int playerID, int sectionID, GameObject checkpoint)
     {
         if (players[playerID].currentSection + 1 == sectionID)
         {
             players[playerID].currentSection++;
             players[playerID].playerTimer = 5f;
+            players[playerID].checkpoint = checkpoint;
 
             if (sectionID == 91) Debug.Log("Race Over");
         }

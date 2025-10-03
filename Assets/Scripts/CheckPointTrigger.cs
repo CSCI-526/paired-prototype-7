@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class CheckPointTrigger : MonoBehaviour
 {
-    public static System.Action<string, string> OnAnyPlaneTrigger;
+    public static System.Action<Transform, string> OnAnyPlaneTrigger;
 
     private void OnTriggerEnter(Collider other)
     {
-        OnAnyPlaneTrigger?.Invoke(transform.parent.name, other.gameObject.name);
+        OnAnyPlaneTrigger?.Invoke(transform.parent, other.gameObject.name);
     }
 }

@@ -40,6 +40,6 @@ public class StartScene : MonoBehaviour
 
     public void MultiPlayer()
     {
-        Debug.Log("Load MultiPlayer Scene");
+        SceneManager.LoadScene("Assets/Scenes/MultiPlayer.unity");
     }
 }
